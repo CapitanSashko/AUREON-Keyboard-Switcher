@@ -2,7 +2,7 @@
 
 <p align="right">
   <strong>English</strong> |
-  <a href="README.uk.md">Українська</a>
+  <a href="https://github.com/CapitanSashko/AUREON-Keyboard-Switcher/blob/main/README.uk.md">Українська</a>
 </p>
 
 <img width="786" height="617" alt="Знімок екрана 2026-11-08 145313" src="https://github.com/user-attachments/assets/d444a8bd-7977-4ccb-b1d0-a66f37588a19" />
