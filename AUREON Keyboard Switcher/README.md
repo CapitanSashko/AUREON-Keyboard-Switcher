@@ -1,7 +1,7 @@
 # AUREON Keyboard Switcher
 
 <p align="right">
-  <a href="[README.md](https://github.com/CapitanSashko/AUREON-Keyboard-Switcher/blob/main/README.md)">English</a> |
+  <a href="https://github.com/CapitanSashko/AUREON-Keyboard-Switcher/blob/main/README.md">English</a> |
   <strong>Українська</strong>
 </p>
 
