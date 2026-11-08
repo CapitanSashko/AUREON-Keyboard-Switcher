@@ -55,7 +55,8 @@ The application automatically determines the source language based on language-s
 
 ## Application Interface
 
-![AUREON Keyboard Switcher — Settings](https://github.com/user-attachments/assets/aa5306c4-86da-4c2f-ae1b-0af5c734f11c)
+![AUREON Keyboard Switcher — Settings](<img width="795" height="628" alt="image" src="https://github.com/user-attachments/assets/2d7fa3ae-54fb-46f0-a3a2-60972a1d7a3b" />
+)
 
 *Main settings interface with application configuration and correction options.*
 
@@ -133,8 +134,6 @@ The application also maintains an event log that records important operations, s
 **Privacy:** The event log does not store the actual text entered by the user.
 
 ## System Integration
-
-<img width="249" height="98" alt="file (1)" src="https://github.com/user-attachments/assets/f70ac887-0eee-4162-8d5c-8491f615465e" />
 
 AUREON Keyboard Switcher runs in the background and is accessible through the Windows system tray.
 
