@@ -2,8 +2,6 @@
 
 **English** | [Українська](https://github.com/CapitanSashko/AUREON-Keyboard-Switcher/blob/main/AUREON%20Keyboard%20Switcher/README.uk.md)
 
-<img width="786" height="617" alt="Знімок екрана 2026-11-08 145313" src="https://github.com/user-attachments/assets/d444a8bd-7977-4ccb-b1d0-a66f37588a19" />
-
 **AUREON Keyboard Switcher** is a lightweight Windows background application designed to automatically correct text typed in the wrong keyboard layout. It also provides intelligent case correction, Cyrillic-to-Latin transliteration, and a self-learning user dictionary.
 
 The application runs in the background and helps improve typing speed and comfort by eliminating the need to manually delete and retype incorrectly entered text.
