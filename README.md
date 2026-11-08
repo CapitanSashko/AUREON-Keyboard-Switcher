@@ -1,88 +1,153 @@
-AUREON Keyboard Switcher
-AUREON Keyboard Switcher is a lightweight Windows background application designed to automatically fix text typed in the wrong keyboard layout. It also manages letter casing, supports Cyrillic-to-Latin transliteration, and features a self-learning user dictionary.
+# AUREON Keyboard Switcher
 
-1. Purpose
-The application runs in the background (system tray) and allows users to correct text either automatically (upon pressing the spacebar) or manually using hotkeys. It is built to increase typing speed and comfort by removing the need to manually delete and retype words when the wrong keyboard layout is active.
+<img width="798" height="631" alt="file" src="https://github.com/user-attachments/assets/eb2d50d1-e808-49d6-8239-58312e19a544" />
 
-2. Key Features
-Automatic Layout Correction
-The program detects when a word is typed in the wrong layout and automatically converts it to the correct language. If the correction is unnecessary, it can be undone or performed manually using the Pause key.
+**AUREON Keyboard Switcher** is a lightweight Windows background application designed to automatically correct text typed in the wrong keyboard layout. It also provides intelligent case correction, Cyrillic-to-Latin transliteration, and a self-learning user dictionary.
 
-Self-Learning
-If a user cancels an automatic correction by pressing the Pause key, the program can add the original word to a custom user dictionary. Future occurrences of this word will not be automatically corrected.
-Self-learning can be disabled in the settings. The custom dictionary is stored in the settings.json file under the UserWords field and can be easily transferred to other computers.
+The application runs in the background and helps improve typing speed and comfort by eliminating the need to manually delete and retype incorrectly entered text.
 
-Case Correction
-The program automatically handles common typing mistakes related to letter casing:
+## Table of Contents
 
-Accidental CapsLock activation.
+- [Features](#features)
+- [Hotkeys](#hotkeys)
+- [Automatic Correction](#automatic-correction)
+- [Operational Details](#operational-details)
+- [Settings and Logging](#settings-and-logging)
+- [System Integration](#system-integration)
 
-Double capital letters at the beginning of a word.
-Corrections are made based on the active language and dictionary. Latin abbreviations and unrecognized words remain untouched.
+## Features
 
-Transliteration
-Converts selected Cyrillic text into Latin characters. Ukrainian and Russian transliterations are supported with automatic language detection.
+### Automatic Layout Correction
 
-[INSERT SCREENSHOT: Main Settings Window]
-(Hint: Screenshot showing the general settings with toggles for auto-correction and autostart)
+Detects text typed using the wrong keyboard layout and automatically converts it to the intended language.
 
-3. Hotkeys
-Shortcut	Action
-Pause	Fix the last word or undo the last automatic correction.
-Shift + Pause	Convert selected text to another layout.
-Ctrl + Alt + T	Transliterate selected text.
-Esc	Close the settings window or cancel hotkey assignment.
-Hotkeys can be changed in the "Keys" (Клавіші) tab in the program settings. By default, Ctrl + Alt + T is used for transliteration.
+Corrections can be performed automatically or manually using the `Pause` key. Automatic corrections can also be immediately undone.
 
-4. How Automatic Correction Works
-To prevent false positives, the program uses strict conditions:
+### Self-Learning Dictionary
 
-Considers up to two preceding words.
+When an automatic correction is undone using `Pause`, the application can add the original word to the custom user dictionary.
 
-Corrects words within a single line and the same layout.
+Once added, the word will no longer be automatically corrected.
 
-Requires a single space between words.
+- Self-learning can be enabled or disabled in the settings.
+- User-defined words can be managed in the **Dictionary** section.
+- Dictionary data is stored in `settings.json`, under the `UserWords` field.
+- The dictionary can be transferred between computers.
 
-Checks the dictionary of the target language.
+### Case Correction
 
-Proper nouns and rare words not present in the dictionary are not automatically corrected.
-The Pause key allows manual correction for such cases.
+Automatically detects and corrects common capitalization mistakes:
 
-5. Operational Details
-Undoing a Correction
-If you press Pause immediately after an automatic correction, the program will revert to the original text. If a new character has already been typed after the correction, Pause will perform a standard manual correction instead.
+- **Accidental CapsLock** — corrects text typed with CapsLock enabled.
+- **Double Capital Letters** — corrects words beginning with two consecutive uppercase letters.
 
-Exclusions
-Programs added to the exclusion list do not support automatic actions like Shift + Pause and transliteration. However, manual correction using the Pause key is available even in excluded programs (e.g., terminal emulators).
+Corrections are performed using language-specific dictionaries. Latin abbreviations and unrecognized words are left unchanged.
 
-Transliteration Rules
-Works only in the Cyrillic → Latin direction. Language detection is based on specific letters of the Ukrainian and Russian alphabets. If the language cannot be unambiguously determined, the Ukrainian variant is used by default.
+### Transliteration
 
-CapsLock
-Automatic case correction triggers when the Spacebar is pressed. Finishing a word with Enter or Tab does not trigger the correction.
+Converts selected Cyrillic text into Latin characters.
 
-6. Settings and Logging
-The application settings are divided into main sections:
+Supported languages:
+- Ukrainian
+- Russian
 
-General — core application parameters.
+The application automatically determines the source language based on language-specific characters.
 
-Corrections — management of auto-correction, self-learning, and case rules.
+## Application Interface
 
-Keys — hotkey configuration.
+![AUREON Keyboard Switcher — Settings](https://github.com/user-attachments/assets/aa5306c4-86da-4c2f-ae1b-0af5c734f11c)
 
-Dictionary — view, add, and delete custom user words.
+*Main settings interface with application configuration and correction options.*
 
-<img width="786" height="617" alt="Знімок екрана 2026-11-08 145313" src="https://github.com/user-attachments/assets/aa5306c4-86da-4c2f-ae1b-0af5c734f11c" />
+## Hotkeys
 
-(Hint: Screenshot showing the correction toggles or the user dictionary tab)
+| Shortcut | Action |
+|:---|:---|
+| `Pause` | Correct the last word or undo the most recent automatic correction. |
+| `Shift + Pause` | Convert selected text to another keyboard layout. |
+| `Ctrl + Alt + T` | Transliterate selected text (Cyrillic → Latin). |
+| `Esc` | Close the settings window or cancel hotkey assignment. |
 
-The event log records the main actions of the program (e.g., the number of automatically corrected words) without saving the actual text you type, ensuring privacy.
+Hotkeys can be customized in the **Keys** section of the application settings.
 
-7. System Integration
-The program runs in the background and is accessible via the Windows system tray. Notifications inform the user about important events, such as a new word being added to the user dictionary.
+The default transliteration shortcut is `Ctrl + Alt + T`.
 
-<img width="249" height="98" alt="file (1)" src="https://github.com/user-attachments/assets/99541de1-62c3-48a7-bf3b-e296b210d8f3" />
+## Automatic Correction
 
-(Hint: Screenshot showing the right-click context menu on the system tray icon)
+To minimize incorrect conversions, the application uses several contextual rules:
 
-AUREON Keyboard Switcher is a tool designed to improve text input speed and convenience, combining automatic layout correction, case management, a user dictionary, and transliteration into a single application.
+- Considers up to two preceding words.
+- Processes words within the same line and keyboard layout.
+- Requires words to be separated by a single space.
+- Checks words against the target language dictionary.
+- Leaves unrecognized words, proper nouns, and rare terms unchanged.
+
+The `Pause` key provides manual correction when automatic detection does not produce a result.
+
+## Operational Details
+
+### Undoing Corrections
+
+Pressing `Pause` immediately after an automatic correction restores the original text.
+
+If another character has been entered after the correction, `Pause` performs a standard manual correction instead.
+
+### Application Exclusions
+
+Applications added to the exclusion list do not support:
+
+- `Shift + Pause` — selected text layout conversion.
+- Transliteration.
+
+Manual correction using `Pause` remains available, including in excluded applications such as terminal emulators.
+
+### Transliteration Rules
+
+Transliteration works exclusively in one direction:
+
+**Cyrillic → Latin**
+
+Language detection is based on specific characters of the Ukrainian and Russian alphabets.
+
+If the source language cannot be determined unambiguously, Ukrainian transliteration is used by default.
+
+### CapsLock Behavior
+
+Automatic case correction is triggered by pressing the `Spacebar`.
+
+Words completed using `Enter` or `Tab` are not automatically corrected.
+
+## Settings and Logging
+
+Application settings are organized into the following sections:
+
+| Section | Description |
+|:---|:---|
+| **General** | Core application settings and startup options. |
+| **Corrections** | Automatic layout correction, self-learning, and capitalization rules. |
+| **Keys** | Custom hotkey configuration. |
+| **Dictionary** | Managing custom user-defined words. |
+
+The application also maintains an event log that records important operations, such as the number of automatically corrected words.
+
+**Privacy:** The event log does not store the actual text entered by the user.
+
+## System Integration
+
+<img width="249" height="98" alt="file (1)" src="https://github.com/user-attachments/assets/f70ac887-0eee-4162-8d5c-8491f615465e" />
+
+AUREON Keyboard Switcher runs in the background and is accessible through the Windows system tray.
+
+System notifications inform users about important events, including successful addition of new words to the user dictionary.
+
+![AUREON Keyboard Switcher — System Tray](https://github.com/user-attachments/assets/99541de1-62c3-48a7-bf3b-e296b210d8f3)
+
+*System tray integration and application context menu.*
+
+---
+
+## About
+
+**AUREON Keyboard Switcher** combines automatic keyboard layout correction, intelligent capitalization, a self-learning dictionary, and transliteration in a single lightweight Windows application.
+
+Its goal is simple: make everyday text input faster, more convenient, and less error-prone.
