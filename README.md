@@ -1,6 +1,6 @@
 # AUREON Keyboard Switcher
 
-**English** | [Українська](README.uk.md)
+**English** | [Українська]([README.uk.md](https://github.com/CapitanSashko/AUREON-Keyboard-Switcher/blob/main/AUREON%20Keyboard%20Switcher/README.uk.md))
 
 <img width="786" height="617" alt="Знімок екрана 2026-11-08 145313" src="https://github.com/user-attachments/assets/d444a8bd-7977-4ccb-b1d0-a66f37588a19" />
 
