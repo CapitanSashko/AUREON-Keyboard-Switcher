@@ -55,8 +55,9 @@ The application automatically determines the source language based on language-s
 
 ## Application Interface
 
-![AUREON Keyboard Switcher — Settings](<img width="795" height="628" alt="image" src="https://github.com/user-attachments/assets/2d7fa3ae-54fb-46f0-a3a2-60972a1d7a3b" />
-)
+![AUREON Keyboard Switcher — Settings]
+
+<img width="795" height="628" alt="image" src="https://github.com/user-attachments/assets/2d7fa3ae-54fb-46f0-a3a2-60972a1d7a3b" />
 
 *Main settings interface with application configuration and correction options.*
 
