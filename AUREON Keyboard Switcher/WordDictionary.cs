@@ -69,6 +69,14 @@ namespace AUREON_Keyboard_Switcher.Core
             return map.TryGetValue(Normalize(word), out int rank) ? rank : -1;
         }
 
+        /// <summary>
+        /// Усі слова мови разом із рангами (потрібно для побудови зворотного індексу транслітерації).
+        /// </summary>
+        public IEnumerable<KeyValuePair<string, int>> EnumerateWords(KeyboardLanguage language) =>
+            _words.TryGetValue(language, out var map)
+                ? map
+                : Enumerable.Empty<KeyValuePair<string, int>>();
+
         // «ß» хранится в словарях как «ss» (так устроен источник списков слов)
         private static string Normalize(string word) =>
             word.Trim()

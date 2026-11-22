@@ -47,7 +47,7 @@ namespace AUREON_Keyboard_Switcher.UI
 
             cards.Controls.Add(CreateHotkeyCard(
                 "Транслітерація виділеного тексту",
-                "«Харків» → «Kharkiv». Не працює в програмах зі списку винятків",
+                "«Харків» ↔ «Kharkiv». Не працює у винятках",
                 Hotkey.ParseOr(_engine.Config.HotkeyTransliterate, Hotkey.DefaultTransliterate),
                 Hotkey.DefaultTransliterate,
                 hotkey => _engine.Config.HotkeyTransliterate = hotkey.ToSettingString()));

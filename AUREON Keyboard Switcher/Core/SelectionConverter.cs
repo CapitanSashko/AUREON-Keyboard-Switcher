@@ -21,6 +21,7 @@ namespace AUREON_Keyboard_Switcher.Core
             { '.', ',', '!', '?', ';', ':', '"', '(', ')', '«', '»', '-' };
 
         private readonly WordDictionary _dictionary;
+        private readonly ReverseTransliterator _reverse;
         private bool _busy;
 
         /// <summary>Яку мову віддати перевагу, якщо у словниках виходить порівну.</summary>
@@ -29,18 +30,24 @@ namespace AUREON_Keyboard_Switcher.Core
         public SelectionConverter(WordDictionary dictionary)
         {
             _dictionary = dictionary;
+            _reverse = new ReverseTransliterator(dictionary);
         }
 
         /// <summary>Перетворює виділений текст в іншу розкладку.</summary>
         /// <param name="triggerKey">Код клавіші сполучення (щоб дочекатися її відпускання).</param>
-        public Task ConvertAsync(int triggerKey = 0x13) => RunAsync(triggerKey, ConvertText);
+        public Task ConvertAsync(int triggerKey = 0x13) =>
+            RunAsync(triggerKey, text => Task.FromResult(ConvertText(text)));
 
-        /// <summary>Транслітерує виділений текст (кирилиця → латиниця).</summary>
-        public Task TransliterateAsync(int triggerKey = 0x13) => RunAsync(triggerKey, Transliterate);
+        /// <summary>
+        /// Транслітерує виділений текст в обидва боки: кирилиця → латиниця або латиниця → кирилиця.
+        /// Напрямок визначається за тим, якого письма в тексті більше.
+        /// </summary>
+        public Task TransliterateAsync(int triggerKey = 0x13) =>
+            RunAsync(triggerKey, TransliterateTextAsync);
 
         private async Task RunAsync(
             int triggerKey,
-            Func<string, (string Text, KeyboardLanguage? Target)?> transform)
+            Func<string, Task<(string Text, KeyboardLanguage? Target)?>> transform)
         {
             if (_busy)
                 return;
@@ -84,7 +91,7 @@ namespace AUREON_Keyboard_Switcher.Core
                 }
 
                 // 4. Перетворюємо
-                (string Text, KeyboardLanguage? Target)? result = transform(text);
+                (string Text, KeyboardLanguage? Target)? result = await transform(text);
 
                 if (result == null)
                 {
@@ -129,17 +136,48 @@ namespace AUREON_Keyboard_Switcher.Core
 
         // ==================== ТРАНСЛІТЕРАЦІЯ ====================
 
-        private static (string Text, KeyboardLanguage? Target)? Transliterate(string text)
+        private async Task<(string Text, KeyboardLanguage? Target)?> TransliterateTextAsync(string text)
         {
-            if (!Transliterator.ContainsCyrillic(text))
+            int cyrillic = 0, latin = 0;
+
+            foreach (char c in text)
+            {
+                if (c is >= '\u0400' and <= '\u04FF')
+                    cyrillic++;
+                else if (ReverseTransliterator.IsLatinLetter(c))
+                    latin++;
+            }
+
+            if (cyrillic == 0 && latin == 0)
                 return null;
 
-            string latin = Transliterator.ToLatin(text);
+            string result;
+
+            if (cyrillic >= latin)
+            {
+                // Кирилиця → латиниця (правила, словник не потрібен)
+                result = Transliterator.ToLatin(text);
+            }
+            else
+            {
+                // Латиниця → кирилиця. Індекс слів будується у фоновому потоці: хук клавіатури працює
+                // в потоці інтерфейсу, і довга затримка призвела б до його зняття Windows
+                CyrillicVariant preferred = Preferred == KeyboardLanguage.Russian
+                    ? CyrillicVariant.Russian
+                    : CyrillicVariant.Ukrainian;
+
+                result = await Task.Run(() =>
+                {
+                    CyrillicVariant variant = _reverse.ChooseVariant(text, preferred);
+                    return _reverse.ToCyrillic(text, variant);
+                });
+            }
 
             // Розкладку не змінюємо: результат лише записується на місце виділеного
-            return string.Equals(latin, text, StringComparison.Ordinal)
-                ? null
-                : (latin, null);
+            if (string.Equals(result, text, StringComparison.Ordinal))
+                return null;
+
+            return (result, null);
         }
 
         // ==================== ЗМІНА РОЗКЛАДКИ ====================
